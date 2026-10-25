@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: akmon-asistente-ia
+    runtime: node
+    plan: free
+    buildCommand: cd backend && pnpm install --frozen-lockfile && pnpm build
+    startCommand: cd backend && pnpm start
+    healthCheckPath: /health
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: APP_API_KEY
+        generateValue: true
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-120b
+      - key: ALLOWED_ORIGINS
+        value: "*"
+      - key: NODE_VERSION
+        value: "22"
